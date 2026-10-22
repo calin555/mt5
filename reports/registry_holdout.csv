@@ -1,0 +1,5 @@
+stage,task,model,auc,trades,net_pips,gross_pips,net_usd_1lot,avg_pips,win_rate,profit_factor,sharpe,sortino,max_dd_usd,max_dd_pct,exposure,rand_mean_pips,rand_p95_pips
+holdout,META,rf,0.424,36,-90.4,-14.8,-904.0,-2.51,0.472,0.769,-0.72,-0.87,-1476.0,-1.48,0.039,-90.5,36.3
+holdout,META,primary_no_ml,,67,-160.0,-19.3,-1600.0,-2.39,0.478,0.762,-0.99,-1.16,-2736.0,-2.74,0.066,,
+holdout,DIR,rf,0.4921,45,-99.9,-5.4,-999.0,-2.22,0.444,0.724,-0.95,-0.88,-2035.0,-2.03,0.025,-92.2,112.7
+holdout,DIR,always_long,,620,-1687.8,-385.6,-16878.0,-2.72,0.484,0.732,-3.53,-5.02,-17621.0,-17.62,0.665,,

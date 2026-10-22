@@ -1,0 +1,44 @@
+# Configurație principală. Toate căile sunt relative la rădăcina proiectului.
+symbol: EURUSD
+data:
+  start: "2018-01-01"      # prima zi descărcată de la Dukascopy
+  end: "2026-10-21"        # ultima zi (inclusiv)
+  raw_dir: data/raw        # cache .bi5 (NU se pune în git)
+  bars_dir: data/bars      # bare agregate (parquet)
+  workers: 6               # descărcări paralele
+  point: 1.0e-5            # prețurile Dukascopy sunt întregi / 1e5
+# sursa barelor pentru research: "mt5" (export din contul demo MetaQuotes, 2010-azi)
+# sau "dukascopy" (bare construite din tick-uri; vezi README pentru limitări)
+source: mt5
+mt5_csv: /home/box/.mt5/drive_c/xmdemo/out/EURUSD_H1.csv
+research_start: "2012-01-01"
+timeframe: 1h
+features:
+  windows: [4, 12, 24, 72, 168]
+labeling:
+  atr_window: 24
+  pt_mult: 1.5             # bariera de profit = 1.5 x ATR
+  sl_mult: 1.5             # bariera de stop = 1.5 x ATR
+  max_hold: 24             # bariera verticală (bare)
+primary:
+  fast: 24                 # semnal primar: crossover EMA rapidă / lentă
+  slow: 96
+validation:
+  holdout_months: 12       # ultimele 12 luni: evaluate O SINGURĂ dată
+  n_splits: 5
+  embargo_bars: 24
+  wf_train_years: 3
+  wf_test_months: 6
+costs:
+  commission_per_lot_rt: 7.0   # USD / lot (100k) dus-întors
+  slippage_pips: 0.2           # pe fiecare parte
+  # spread: din date dacă sursa e Dukascopy (ask-bid real); pentru MT5 câmpul
+  # "spread" e adesea 0 (minimul barei), deci folosim max(spread_bara, min_spread_pips)
+  min_spread_pips: 1.0
+  pip: 0.0001
+models: [logreg, rf, lgbm, xgb]
+meta_threshold: 0.5
+direction_band: 0.05    # task direcție: long dacă p>0.55, short dacă p<0.45
+direction_step: 6       # task direcție: un eveniment la fiecare 6 bare
+n_random: 1000
+seed: 42
