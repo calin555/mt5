@@ -3,3 +3,5 @@ data/
 __pycache__/
 *.pyc
 logs/
+reports/v2/wf_trades/
+reports/v2/*.parquet
